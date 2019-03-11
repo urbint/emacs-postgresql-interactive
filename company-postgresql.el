@@ -296,5 +296,5 @@
 
 ;;;
 
-(provide 'company-sql)
+(provide 'company-postgresql)
 ;;; company-postgresql.el ends here
