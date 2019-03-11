@@ -48,7 +48,7 @@ Live, interactive development support for PostgreSQL
 First you will want to require the package:
 
 #+BEGIN_SRC emacs-lisp
-(require 'company-sql)
+(require 'company-postgresql)
 #+END_SRC
 
 Then you will want to make sure to add the backend for company to your ~org-mode-hook~:
