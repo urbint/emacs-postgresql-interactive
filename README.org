@@ -44,6 +44,7 @@ Live, interactive development support for PostgreSQL
     '((emacs-postgresql-interactive :location (recipe :fetcher github :repo "urbint/emacs-postgresql-interactive")))
 #+END_SRC
 
+
 * Setup
 First you will want to require the package:
 
@@ -57,6 +58,7 @@ Then you will want to make sure to add the backend for company to your ~org-mode
 (add-to-list 'company-backends 'company-ob-postgresql)
 #+END_SRC
 
-Then make sure that you have a (pgpass file)[https://wiki.postgresql.org/wiki/Pgpass] with all the required fields for your target database
+Then make sure that you have a [[https://wiki.postgresql.org/wiki/Pgpass][pgpass file]] with all the required fields for your
+target database
 
 Should just work with ~ob-sql~
