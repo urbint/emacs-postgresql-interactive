@@ -8,6 +8,7 @@
 (require 'emacsql)
 (require 'emacsql-psql)
 (require 'dash)
+(require 'dash-functional)
 (require 's)
 (require 'cl-lib)
 
@@ -192,7 +193,7 @@
 
 (cl-defun company-postgresql/candidates (prefix conn)
   (-filter
-   (apply-partially #'s-starts-with? prefix)
+   (-compose (apply-partially #'s-starts-with? (downcase prefix)) #'downcase)
    (append (-map (lambda (s)
                    (propertize s 'company-postgresql-annotation "table"))
                  (company-sql/list-tables conn))
