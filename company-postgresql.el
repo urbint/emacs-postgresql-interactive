@@ -48,7 +48,7 @@
    ((symbolp x) (symbol-name x))))
 
 (defun alist-get-equal (key alist)
-  "Like `alist-get', but uses `equal' instead of `eq' for comparing keys"
+  "Like `alist-get', but use `equal' instead of `eq' for comparing keys."
   (->> alist
        (-find (lambda (pair) (equal key (car pair))))
        (cdr)))
@@ -230,18 +230,21 @@
   ())
 
 (defun org-company-sql/connect (conn-params)
+  "Return a new or cached connection for the given emacsql CONN-PARAMS."
   (or (alist-get-equal conn-params org-company-sql/connections)
        (let ((conn (apply 'emacsql-psql conn-params)))
          (add-to-list 'org-company-sql/connections (cons conn-params conn))
          conn)))
 
 (defun org-company-sql/in-sql-source-block-p ()
+  "Return t if point is at or inside a SQL source code block."
   (let ((org-elt (org-element-at-point)))
     (and (eq 'src-block (car org-elt))
          (equal "sql" (plist-get (cadr org-elt)
                                  :language)))))
 
 (defun org-company-sql/parse-cmdline (cmdline)
+  "Parse CMDLINE as shell arguments to psql."
   (let* ((lexed (s-split (rx (one-or-more blank)) cmdline))
          (go (lambda (state tokens)
                (if (null tokens) ()
@@ -257,6 +260,7 @@
     opts))
 
 (defun org-company-sql/source-block-conn-params ()
+  "Get emacsql connection params for the SQL source block at point."
   (let* ((block-info (org-babel-get-src-block-info))
          (params (caddr block-info))
          (cmdline (alist-get :cmdline params))
@@ -276,11 +280,17 @@
           :port port)))
 
 (defun org-company-sql/connection-for-source-block ()
+  "Get an emacsql connection for the SQL source block at point."
   (org-company-sql/connect
    (org-company-sql/source-block-conn-params)))
 
 
 (defun company-ob-postgresql (command &optional arg &rest _)
+  "Company backend for completion via Postgres in `org-babel' SQL source blocks.
+
+COMMAND is one of the supported commands via company, or `interactive' when
+called interactively
+ARG is provided by company"
   (interactive (list 'interactive))
   (cl-case command
     (interactive (company-begin-backend 'company-ob-postgresql))
