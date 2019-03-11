@@ -1,0 +1,17 @@
+#+TITLE: PostgreSQL Interactive
+
+Live, interactive development support for PostgreSQL
+
+* Features
+
+- DB-aware autocomplete via Company
+- Multi-connection autocomplete in ~org-mode~ source blocks via Company
+
+* Planned features
+
+- Autocomplete in string literals in source code
+- Interactive schema and documentation lookup
+- Context-aware autocomplete
+- Syntax and schema checking via Flycheck
+
+* TODO Installation
