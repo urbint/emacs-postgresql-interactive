@@ -230,11 +230,10 @@
   ())
 
 (defun org-company-sql/connect (conn-params)
-  (car                                  ; ???
-   (or (alist-get-equal conn-params org-company-sql/connections)
+  (or (alist-get-equal conn-params org-company-sql/connections)
        (let ((conn (apply 'emacsql-psql conn-params)))
          (add-to-list 'org-company-sql/connections (cons conn-params conn))
-         conn))))
+         conn)))
 
 (defun org-company-sql/in-sql-source-block-p ()
   (let ((org-elt (org-element-at-point)))
