@@ -14,4 +14,49 @@ Live, interactive development support for PostgreSQL
 - Context-aware autocomplete
 - Syntax and schema checking via Flycheck
 
-* TODO Installation
+* Installation
+
+** [[https://github.com/quelpa/quelpa][Quelpa]]
+
+#+BEGIN_SRC emacs-lisp
+(quelpa '(emacs-postgresql-interactive
+          :fetcher github
+          :repo "urbint/emacs-postgresql-interactive"))
+#+END_SRC
+
+** [[https://github.com/hlissner/doom-emacs/][DOOM Emacs]]
+
+#+BEGIN_SRC emacs-lisp
+;; in packages.el
+(package! emacs-postgresql-interactive
+  :recipe (:fetcher github
+           :repo "urbint/emacs-postgresql-interactive"
+           :files ("*")))
+
+;; in config.el
+(def-package! emacs-postgresql-interactive)
+#+END_SRC
+
+** [[http://spacemacs.org/][Spacemacs]]
+#+BEGIN_SRC emacs-lisp
+;; in .spacemacs (SPC+fed)
+   dotspacemacs-additional-packages
+    '((emacs-postgresql-interactive :location (recipe :fetcher github :repo "urbint/emacs-postgresql-interactive")))
+#+END_SRC
+
+* Setup
+First you will want to require the package:
+
+#+BEGIN_SRC emacs-lisp
+(require 'company-sql)
+#+END_SRC
+
+Then you will want to make sure to add the backend for company to your ~org-mode-hook~:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'company-backends 'company-ob-postgresql)
+#+END_SRC
+
+Then make sure that you have a (pgpass file)[https://wiki.postgresql.org/wiki/Pgpass] with all the required fields for your target database
+
+Should just work with ~ob-sql~
